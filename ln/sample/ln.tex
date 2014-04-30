@@ -1,0 +1,99 @@
+\documentclass{article}
+\usepackage{iko42360}
+
+%% the format for the lecture environment is
+% \begin{lecture}{lecture number}{lecture title}{scribe(s)}{lecture date}
+\begin{lecture}{10}{Probabilistics Robotics: Introduction}{Your Name}{04/28/2014}
+
+\section{Introduction}
+Some story about robotics today.
+For example, the Stanford's tidy-up robot project.
+Some story about robotics today.
+For example, the Stanford's tidy-up robot project.
+
+Robots' basic capabilities.
+What makes a robot?
+Why coding a robot is so hard?
+What do we do in AI for robotics?
+Robots' basic capabilities.
+What makes a robot?
+Why coding a robot is so hard?
+What do we do in AI for robotics?
+
+Why use probabilistics~\cite{Thrun:2005:PR}?
+Why bother with uncertainty?
+Where does the uncertainty come from?
+Why use probabilistics?
+Why bother with uncertainty?
+Where does the uncertainty come from?
+
+The theorem of total probability?
+This is text style:
+$\lim_{n \to \infty}
+\sum_{k=1}^n \frac{1}{k^2}
+= \frac{\pi^2}{6}$.
+And this is display style:
+\begin{equation}
+\lim_{n \to \infty}
+\sum_{k=1}^n \frac{1}{k^2}
+= \frac{\pi^2}{6}
+\end{equation}
+
+\section{The Markov Assumption}
+Illustrate the Markov Decision Processes?
+Why is a state said to have the Markov property?
+Explain the Markov assumption?
+Illustrate the Markov Decision Processes?
+Why is a state said to have the Markov property?
+Explain the Markov assumption?
+
+\begin{equation*}
+\mathbf{X} = \left(
+\begin{array}{ccc}
+x_1 & x_2 & \ldots \\
+x_3 & x_4 & \ldots \\
+\vdots & \vdots & \ddots
+\end{array} \right)
+\end{equation*}
+
+\section{Action Models}
+What is the transition probability?
+Explain some example?
+Illustrate the belief of a mobile robot about its position that is inferred merely from its odometry using encoders!
+What is the transition probability?
+Explain some example?
+Illustrate the belief of a mobile robot about its position that is inferred merely from its odometry using encoders!
+
+\begin{equation*}
+|x| = \left\{
+\begin{array}{rl}
+-x & \text{if } x < 0,\\
+0 & \text{if } x = 0,\\
+x & \text{if } x > 0.
+\end{array} \right.
+\end{equation*}
+
+\section{Perception Models}
+How to obtain a measurement probability?
+What is the implication of the independent noise assumption?
+\begin{equation*}
+\sum_{i=1}^n \qquad
+\int_0^{\frac{\pi}{2}} \qquad
+\prod_\epsilon
+\end{equation*}
+
+\section{The Bayes Filter}
+\begin{theorem}\cite[Theorem 1]{Thrun:2005:PR}: For all $\mathbf{x}\in \mathcal{A}^\infty$, the sequence of denoisers $\{\hat{X}^n_{\mathrm{univ}}\}$ defined in (14) satisfies
+a) $\lim_{n\rightarrow\infty}\big[L_{\hat{X}^n_{\mathrm{univ}}}(x^n,Z^n)-D_{k_n}(x^n,Z^n)\big]=0$, a.s.
+b) $E\big[L_{\hat{X}^n_{\mathrm{univ}}}(x^n,Z^n)-D_{k_n}(x^n,Z^n)\big]=O\big(\sqrt{\frac{k_n M^{2k_n}}{n}}\big)$
+\end{theorem}
+
+\section{Miscellany}
+This was prepared by Vektor in April 30, 2014.
+You may contact him at vektor.dewanto@gmail.com.
+
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,ref}
+
+\end{lecture}
+\theend
