@@ -93,7 +93,7 @@ As the last section, this topic will be discuss further in the following classes
 Sensors hardly ever return abosolute accurate readings.
 For example, sonars (which are quite prevalent in robotics) have three main problems: foreshortening, specular reflection and crosstalk; see figure~\ref{fig:sonar_problem} for more.
 In order to handle uncertainty that arises from those problems, the perception model is built based on experiment data.
-Concretely, figure~\ref{fig:range_data} dan figure~\ref{fig:measurement_model} shows typical data from range sensors for some true value and the derived measurement model, respectively.
+Concretely, figure~\ref{fig:range_data} dan figure~\ref{fig:measurement_model} shows examples of typical data from range sensors for some true value and the measurement model, respectively.
 
 \begin{figure}[!tb]
   \centering
@@ -111,8 +111,8 @@ Concretely, figure~\ref{fig:range_data} dan figure~\ref{fig:measurement_model} s
 
 \begin{figure}[!tb]
   \centering
-  \includegraphics[scale=.6]{measurement_model}
-  \caption{The measurement model (the red Gaussian distribution curve) based on experiment data; courtesy of~\cite{davide09}.}
+  \includegraphics[scale=.6]{measurement_model_2}
+  \caption{The measurement model (the red Gaussian distribution curve) based on experiment data (\emph{not} correlated with data in figure~\ref{fig:range_data}); courtesy of~\cite{Thrun:2005:PR}.}
   \label{fig:measurement_model}
 \end{figure}
 
