@@ -65,7 +65,7 @@ After several exhaustive experiments, we obtain the error model of the action as
 \end{figure}
 
 In principle, robot actions increase the uncertainty about the robot's state, e.g. its position for the case of localization.
-Figure~\ref{fig:action_increases_uncertainty} visualizes how this happens for the action error model shown in figure~\ref{fig:encoder_err_model}.
+Figure~\ref{fig:action_increases_uncertainty} and~\ref{fig:action_increases_uncertainty_2} visualize how this happens for the action error model shown in figure~\ref{fig:encoder_err_model}.
 Initially, a robot has an absolute certainty about its position at $\boldsymbol{x}_0 = l_0$, which is represented using a dirac distribution.
 Afterwards, it executes a sequence of three actions as follows: $\boldsymbol{u}_1 = \Delta S_1$, $\boldsymbol{u}_2 = \Delta S_2 - \Delta S_1$ and $\boldsymbol{u}_3 = \Delta S_3 - \Delta S_2$.
 As can be seen, as the robot progresses, the standard deviations of gaussian distributions of $p(l)$ increase.
@@ -78,17 +78,17 @@ If it continues to execute the similiar actions, eventually, it will loss inform
   \label{fig:action_increases_uncertainty}
 \end{figure}
 
+\begin{figure}[!tb]
+  \centering
+  \includegraphics[scale=.5]{action_increases_uncertainty_2}
+  \caption{Robot actions increase uncertainty, illustrated using ``particles''; courtesy of~\cite{Thrun:2005:PR}.}
+  \label{fig:action_increases_uncertainty_2}
+\end{figure}
+
 \section{Perception Models} \label{sec:perception_model}
 The perception (or measurement) model is the probability of a measurement (observation) $\boldsymbol{z}_t$ given a state~$\boldsymbol{x}_t$ and a map~$m$, that is $p(\boldsymbol{z}_t |\boldsymbol{x}_t, m)$.
 Essentially, the information from sensors refines (increases) the certainty about a state.
 As the last section, this topic will be discuss further in the following classes.
- 
-\begin{figure}[!tb]
-  \centering
-  \includegraphics[scale=.5]{action_increases_uncertainty}
-  \caption{Robot actions increase uncertainty; courtesy of~\cite{davide09}.}
-  \label{fig:action_increases_uncertainty}
-\end{figure}
 
 Sensors hardly ever return abosolute accurate readings.
 For example, sonars (which are quite prevalent in robotics) have three main problems: foreshortening, specular reflection and crosstalk; see figure~\ref{fig:sonar_problem} for more.
