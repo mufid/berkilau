@@ -1,0 +1,5 @@
+rm ln.aux ln.bbl ln.blg ln.log ln.out
+pdflatex ln.tex
+bibtex ln.aux
+pdflatex ln.tex
+pdflatex ln.tex
