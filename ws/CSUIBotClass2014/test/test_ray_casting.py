@@ -2,7 +2,7 @@
 
 import numpy as np
 import math
-import CSUIBotClass2014.util.ray_casting as rc
+from CSUIBotClass2014.util.ray_casting import ray_cast
 
 # Construct the occupancy grid map
 grid_map = {'size': (5,5), 'res': 1.0}
@@ -24,5 +24,5 @@ theta = math.pi/4*7
 pose = (x, y, theta)
 
 #
-hit = rc.ray_cast(pose, grid_map)
+hit = ray_cast(pose, grid_map)
 print '(final) hit=', hit
