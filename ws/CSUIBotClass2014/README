@@ -1,0 +1,9 @@
+The code here is tested on Python 2.7.x
+
+===
+Dependencies: (not an exhaustive list)
+
+https://pypi.python.org/pypi/Shapely
+requires 
+$ sudo apt-get install libgeos-dev
+
