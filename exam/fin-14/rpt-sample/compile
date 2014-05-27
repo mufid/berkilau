@@ -1,0 +1,5 @@
+rm rpt.aux rpt.bbl rpt.blg rpt.log rpt.out
+pdflatex rpt.tex
+bibtex rpt.aux
+pdflatex rpt.tex
+pdflatex rpt.tex

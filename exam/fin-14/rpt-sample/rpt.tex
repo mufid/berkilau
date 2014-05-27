@@ -1,0 +1,202 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
+
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
+
+\IEEEoverridecommandlockouts                              % This command is only needed if 
+                                                          % you want to use the \thanks command
+
+\overrideIEEEmargins                                      % Needed to meet printer requirements.
+
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+% The following packages can be found on http:\\www.ctan.org
+\usepackage{hyperref}
+\usepackage{graphicx} % for pdf, bitmapped graphics files
+\graphicspath{{./fig/}}
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\usepackage{subfigure}
+\usepackage{lipsum}
+\usepackage[us,12hr]{datetime} % `us' makes \today behave as usual in TeX/LaTeX
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+
+\title{\LARGE \bf
+IKO42360 Technical Report: Monte Carlo Localization (MCL)*
+}
+
+\author{Vektor Dewanto$^{1}$ and Nanda Kurniawan$^{2}$ and Wisnu Jatmiko$^{3}$  % <-this % stops a space
+\thanks{*Team TA, compiled on {\ddmmyyyydate\today} at \currenttime}% <-this % stops a space
+\thanks{$^{1}$NPM: 0606029492,
+        {\tt\small vektor.dewanto@gmail.com}}%
+\thanks{$^{2}$NPM: 0606029492,
+        {\tt\small vektor.dewanto@gmail.com}}%
+\thanks{$^{3}$NPM: 0606029492,
+        {\tt\small vektor.dewanto@gmail.com}}%
+}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+You may or may not write an abstract.
+It is essentially a summary comprising of not more than 250 words.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+This report guidance is not strict in the sense that you may \emph{not only} add some point \emph{but also} remove some point, yet you still obtain an optimal grade (if those addition and removal are reasonably justified).
+Feel free to ask TAs for any doubt.
+
+\begin{itemize}
+    \item give some context or background
+    \item state the problem
+    \item state the objective
+    \item give an overview about the method
+    \item why choose a particular method
+    \item give an overview about the experiment results
+    \item outline the content
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Robot Simulation}
+\begin{itemize}
+\item robot's specification?
+\item assumptions?
+\end{itemize}
+\subsection{Action Simulation}
+\begin{itemize}
+\item assumptions?
+\item probability distribution?
+\item code listing
+\end{itemize}
+\subsection{Perception Simulation}
+\begin{itemize}
+\item assumptions?
+\item probability distribution?
+\item code listing
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Action Models}
+\begin{itemize}
+    \item the theory: either odometry or velocity motion models
+    \item assumptions, e.g. gaussian errors
+    \item code listing
+    \item experiment on motion model
+    \item reproduce fig. 5.4, 5.9, 5.10 from~\cite{Thrun:2005:PR}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Perception Models}
+\begin{itemize}
+    \item the theory: either beam model for range finders or feature-based measurement models
+    \item assumptions, e.g. gaussian errors
+    \item code listing
+    \item tuning the intrinsic parameters
+    \item experiment on perception model
+    \item reproduce fig. 6.4, 6.5 from~\cite{Thrun:2005:PR}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{KLD-sampling MCL}
+\subsection{The standard MCL}
+\begin{itemize}
+\item the theory
+\item code listing
+\end{itemize}
+
+\subsection{The KLD-sampling MCL}
+You may try other variants of MCL.
+If you do so, do not forget to change the title of this subsection and the section.
+\begin{itemize}
+\item the theory
+\item code listing
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Experiments and Results}
+
+\subsection{Setup}
+\begin{itemize}
+    \item what kind of map? assumptions?
+    \item code listing for map constructions
+    \item draw/illustrate the map!
+    \item control commands? hardcoded? wall following?
+    \item experiment design or procedure; the start state?
+    \item evaluation metrics: errors, convergence time
+    \item scope: localization problem type?
+    \item is a live simulation available? excellent if one exists
+    \item for each experiment (local, global and kidnapped-robot), reproduce fig. 8.3, 8.4, 8.7, 8.11, 8.13, 8.16, 8.17, 8.18, 8.19 from~\cite{Thrun:2005:PR}. For some figures, replace ``cell size'' with ``number of particles''
+\end{itemize}
+
+\subsection{Local Localization}
+\begin{itemize}
+\item result, comparison: standard vs. variant
+\item analysis
+\end{itemize}
+
+\subsection{Global Localization}
+\begin{itemize}
+\item result, comparison: standard vs. variant
+\item analysis
+\end{itemize}
+
+\subsection{Kidnapped-robot Problem}
+\begin{itemize}
+\item result, comparison: standard vs. variant
+\item analysis
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Related Work}
+Discuss or review in-depth \emph{one} related work.
+Each team is initially assigned different paper.
+This can be changed to any paper of your choice; preferably it is published in major robotics conferences, such as ICRA, IROS, RSS.
+For you, we have collected: \cite{1389783, 5354298, 5509950, 6696380, 6094843, 4059089}
+\begin{itemize}
+    \item what is the problem that they tackled?
+    \item how is the proposed solution/method?
+    \item how good is their solution? any comparisons?
+    \item what it the limitations of their work?
+    \item what future work or open problems do they mention?
+    \item your opinions about the work
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}
+\begin{itemize}
+    \item re-state the problem, goal briefly
+    \item highlight the (proposed) method
+    \item convey the results, mention the advantages of using the (proposed) method and current limitations
+    \item some lessons-learned, some open problems
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{APPENDIX}
+The answer to Problem 2 is explained here.
+\begin{itemize}
+    \item re-state the problem, goal briefly
+    \item formulate the $MDP=(S, A, P_{sa}, R, \gamma)$
+    \item code listing
+    \item plot the values of $V^*$ on the grid map
+    \item plot the optimal policy~$\pi^*$ on the grid map
+    \item analysis
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,rpt}
+
+\end{document}
