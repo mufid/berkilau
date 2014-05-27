@@ -57,6 +57,8 @@ It is essentially a summary comprising of not more than 250 words.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
+This report guidance presents elaborated instructions.
+You may find this as a complement to the original instruction file.
 This report guidance is not strict in the sense that you may \emph{not only} add some point \emph{but also} remove some point, yet you still obtain an optimal grade (if those addition and removal are reasonably justified).
 Feel free to ask TAs for any doubt.
 
@@ -73,20 +75,23 @@ Feel free to ask TAs for any doubt.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Robot Simulation}
 \begin{itemize}
-\item robot's specification?
-\item assumptions?
+    \item robot's specification?
+    \item assumptions?
 \end{itemize}
+
 \subsection{Action Simulation}
 \begin{itemize}
-\item assumptions?
-\item probability distribution?
-\item code listing
+    \item assumptions?
+    \item probability distribution?
+    \item notice different characteristics of the floor surface 
+    \item code listing
 \end{itemize}
+
 \subsection{Perception Simulation}
 \begin{itemize}
-\item assumptions?
-\item probability distribution?
-\item code listing
+    \item assumptions?
+    \item probability distribution?
+    \item code listing
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -96,6 +101,7 @@ Feel free to ask TAs for any doubt.
     \item assumptions, e.g. gaussian errors
     \item code listing
     \item experiment on motion model
+    \item how do different characteristics of the floor surface influence the model?
     \item reproduce fig. 5.4, 5.9, 5.10 from~\cite{Thrun:2005:PR}
 \end{itemize}
 
@@ -107,6 +113,7 @@ Feel free to ask TAs for any doubt.
     \item code listing
     \item tuning the intrinsic parameters
     \item experiment on perception model
+    \item what if some obstacles are treated as unexpected objects, implying that they are not contained in the map?
     \item reproduce fig. 6.4, 6.5 from~\cite{Thrun:2005:PR}
 \end{itemize}
 
@@ -167,10 +174,10 @@ Each team is initially assigned different paper.
 This can be changed to any paper of your choice; preferably it is published in major robotics conferences, such as ICRA, IROS, RSS.
 For you, we have collected: \cite{1389783, 5354298, 5509950, 6696380, 6094843, 4059089}
 \begin{itemize}
-    \item what is the problem that they tackled?
-    \item how is the proposed solution/method?
+    \item what is the problem they solved?
+    \item how does the proposed solution/method work?
     \item how good is their solution? any comparisons?
-    \item what it the limitations of their work?
+    \item what is the limitation of their current implementation?
     \item what future work or open problems do they mention?
     \item your opinions about the work
 \end{itemize}
@@ -178,23 +185,31 @@ For you, we have collected: \cite{1389783, 5354298, 5509950, 6696380, 6094843, 4
 \section{Conclusions}
 \begin{itemize}
     \item re-state the problem, goal briefly
-    \item highlight the (proposed) method
+    \item explain some interesting points about the action or perception model
+    \item highlight the (proposed) method: the MCL variant
     \item convey the results, mention the advantages of using the (proposed) method and current limitations
     \item some lessons-learned, some open problems
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{APPENDIX}
-The answer to Problem 2 is explained here.
+\section*{APPENDIX: Planning Under MDP}
+Your work on Problem 2 is explained here.
 \begin{itemize}
-    \item re-state the problem, goal briefly
+    \item re-state the problem, the goal briefly
     \item formulate the $MDP=(S, A, P_{sa}, R, \gamma)$
-    \item code listing
+    \item code listing, for the core modules
     \item plot the values of $V^*$ on the grid map
-    \item plot the optimal policy~$\pi^*$ on the grid map
+    \item plot the optimal policy~$\pi^*$ on the grid map, reproduce fig.~14.2 from~\cite{Thrun:2005:PR}
     \item analysis
 \end{itemize}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{APPENDIX: Feedback to the Class}
+We love improvements.
+We value your feedback to the lecturer, the TAs, the lecture, the homework, etc.
+Feel free to write almost anything about the class, for example, something that you do not want your juniors suffer from.
+We thank you for all the hard work you put in this class.
+Good luck~:)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,rpt}

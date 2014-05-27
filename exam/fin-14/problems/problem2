@@ -1,0 +1,24 @@
+PROBLEM 2 (for elaborated instructions, please refer to the rpt-sample)
+
+Goal:
+> implement (experiment on) planning under MDP on a simplistic grid map
+> motive: to propose an inside-room navigation to our friends in Tim Robot UI, assuming that the robot has a sensor capable of inferring the position of the obstacle and the on-fire candle
+
+Robot:
+> dimensionless point robot
+> a holonomic robot with 8 actions: N, NE, E, SE, S, SW, W and NW
+> the transition probability can be generalized from this observation:
+>> for the desired action of N and the current grid x
+>> arrive at adjacent grid of x in the north direction with the probability of 0.7 
+>> arrive at adjacent grid of x in the north-west direction with the probability of 0.1 
+>> arrive at adjacent grid of x in the north-east direction with the probability of 0.1 
+>> arrive at adjacent grid of x in the east direction with the probability of 0.05
+>> arrive at adjacent grid of x in the west direction with the probability of 0.05 
+> if the robot hits the wall, it stays at the current state
+
+Workspace:
+> discrete grid world
+> take the largest room from the map of Problem 1 _or_ build up your own
+> determine one grid to put an on-fire candle, the goal states are the adjacent grids with the radius of one grid
+> determine one grid for obtacle whose adjacent grids with the radius of one grid become deadly grids since the robot will be stuck forever once it steps in those grids
+
