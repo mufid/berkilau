@@ -1,0 +1,14 @@
+PROBLEM 1 (for elaborated instructions, please refer to the rpt-sample)
+
+Goal: 
+> to build an MC-based localization on a mobile robot working in a 2D planar workspace
+
+Robot:
+> dimensionless point robot
+> a (non-holonomic) differential-drive robot
+> eight equally-spaced sonars with some resolution and some maximum range, installed in the robot's perimeter.
+> eight equally-spaced cameras capable of extracting a feature of a landmark, see the lecture note 3++: Velocity Motion and Feature-based Measurement Models
+
+Workspace:
+> a 2D planar world whose layout follows those of the Kontes Robot Cerdas Indonesia: wheeled division, see the directory of maps/
+> size: 20x20 grids, grid resolution: 1 unit (meter), index begin at 0, y+ axis points downward

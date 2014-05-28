@@ -1,0 +1,43 @@
+RULES
+
+Teaming:
+> the class is divided into 5 teams 
+> one team is of 4 students at most
+
+Evaluation:
+> team score (w= 0.45): duration:  about 2 weeks
+>>> code (w= 0.55): correctness, scalability, reusability, maintainability, documentation, etc
+>>> technical report (w= 0.45): use the template, see: https://github.com/tttor/csui-bot-class/tree/master/exam/fin-14/rpt-sample
+> individual score: w= 0.55, duration: one hour (at most) per team, June 18, 19, 2014, refer to the ppt-schedule forum in SCELE
+>>> present/show off your understanding and contribution to the report and the coding
+>>> answer some (random) questions
+
+Submission:
+> Deadline: June 17, 2014: 23.59pm
+> iko42360-final-14-teamX/ (compressed)
+  |--- rpt/
+       |--- rpt.tex
+       |--- rpt.pdf
+       |--- rpt.bib
+       |--- compile (if needed)
+       |--- fig/
+            |--- fig1.pdf
+  |--- ws/ (sample structure)
+       |--- sim/
+       |--- mcl/
+       |--- model/
+       |--- util/
+       |--- main/
+       |--- planning/ (for problem 2)
+  |--- README
+
+Misc:
+> on each source code, include the field of @author:
+> for more elaborated instructions, please see also the report writing guide in the directory of rpt-sample/
+> for team-specific instructions, please see the file of subproblem2team_map.pdf 
+> for any miss specification that may occur, we will use a forum in SCELE to discuss; the patched (most updated) version is always available at https://github.com/tttor/csui-bot-class/tree/master/exam/fin-14
+> for automatic synch, directly include your code listing, see: http://tex.stackexchange.com/questions/5070/can-i-enter-code-directly-from-a-source-file
+> notice that there are two problems, see problem/
+> questions to / discussion with the Dr. Wisnu Jatmiko or the TAs about almost _anything_ are welcomed till the evaluation hour
+> TAs: Nanda Kurniawan, Vektor Dewanto (vektor.dewanto@gmail.com)
+
