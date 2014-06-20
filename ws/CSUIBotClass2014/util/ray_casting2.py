@@ -103,7 +103,7 @@ def ray_casting(pose_dict, m, direction, grid_idx=None):
     
     # Obtain the intersection points
     hit_raw = ray.intersection(grid)
-#    print 'list(hit_raw.coords)=', list(hit_raw.coords)
+    print 'list(hit_raw.coords)=', list(hit_raw.coords)
     
     hit = hit_raw.coords[1]# the first element is the ray origin 
     print 'hit=', hit

@@ -60,7 +60,8 @@ m = [
 
 # U is movement with velocity motion in 2D
 #print map[0][0]
-U = [None, {'v': 0, 'w': 0}, {'v': 1, 'w': 0}, {'v': 1, 'w': np.pi / 8 }]
+import math
+U = [None, {'v': 1, 'w': 1}, {'v': 2, 'w': math.pi / 8}, {'v': 1, 'w': math.pi / 8 }]
 
 #U = [None, 0.0, 2.0, 2.5]# hardcoded: a list of desired actions in odometry motion model
 #assert (len(U)>=len(T)), 'len(U)<len(T)'
@@ -75,38 +76,43 @@ U = [None, {'v': 0, 'w': 0}, {'v': 1, 'w': 0}, {'v': 1, 'w': np.pi / 8 }]
 
 # Put the robot now!
 #x_star = m['start-pos']
-x_star = {'x': 1.1, 'y': 1.2, 'theta': -math.pi/4 }
-
+# x_star = {'x': 2., 'y': 2., 'theta': -math.pi/4 } # error!
+x_star = {'x': 2.1, 'y': 2.1, 'theta': -math.pi/4 }
 # Localize!
 import CSUIBotClass2014.util.ray_casting2 as rc
-print 'north'
+print 'north --------'
 print rc.ray_casting(x_star, m, 'n')
-print 'northwest'
+print 'northwest ------'
 print rc.ray_casting(x_star, m, 'nw')
-print 'west'
+print 'west ----'
 print rc.ray_casting(x_star, m, 'w')
+print 
 print rc.ray_casting(x_star, m, 'sw')
 print rc.ray_casting(x_star, m, 's')
+print 
 print rc.ray_casting(x_star, m, 'se')
+print 
 print rc.ray_casting(x_star, m, 'e')
+print 
 print rc.ray_casting(x_star, m, 'ne')
+print
 
-for t in None:# T[1:]:
+for t in T[1:]:
     print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> t=", t
     # _Simulate_ an action
     u = U[t]
     print 'u_star=', u
     
     #x_star = action.move(u, x_star, m)
-    x_star = action.move_velocity(u, x_star, grid)
+    x_star = action.move_velocity(u, x_star, m)
     print 'x_star=', x_star
     
     # _Simulate_ an observation
     #z = sensor.sense_door(x_star, m)
-    z = sensor.sense_beam(x_star, grid)
+    z = sensor.sense_beam(x_star, m)
     print 'z_star= ', z
     
-    X = MCL.run(X, u, z, m)
+    #X = MCL.run(X, u, z, m)
     #plots.append(plotter.plot(X, m, x_star, t))
     
 # Closure
