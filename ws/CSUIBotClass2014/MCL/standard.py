@@ -42,7 +42,9 @@ def run(X_past, u, z, m):
     n_particle = len(X_past)# fixed #particle for ever :(
 
     for i in range(n_particle):
-        x = act_model.sample_motion_model(u, X_past[i][0])
+        x = act_model.sample_motion_model(u, X_past[i][0], m)
+        print "moeeeeee"
+        print x
         w = obs_model.beam_range_finder_model(z, x, m)
         X_bar.append((x, w))
     
