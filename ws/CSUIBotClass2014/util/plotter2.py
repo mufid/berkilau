@@ -22,6 +22,12 @@ def plot(X, m, x_star, t):
     ax.grid(which='major', axis='y', linewidth=0.75, linestyle='-', color='0.75')
     ax.grid(which='minor', axis='y', linewidth=0.25, linestyle='-', color='0.75')
 
+    for y, row in enumerate(m):
+        for x, cell in enumerate(row):
+            if (cell == 'W'):
+                rect = pl.Rectangle((x,y), 1, 1, fill=True,color='#cacaca')
+                ax.add_patch(rect)
+
     # Draw the robot and its direction
     x,y,theta = x_star['x'], x_star['y'], x_star['theta']
     dx = 1 * math.cos(theta)
