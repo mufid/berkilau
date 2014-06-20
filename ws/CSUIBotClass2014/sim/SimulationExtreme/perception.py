@@ -4,6 +4,7 @@
 import numpy as np
 import scipy.stats as stat
 import CSUIBotClass2014.util.ray_casting2 as rc
+
 def get_noise():
   # all in meters
   mu = 0
