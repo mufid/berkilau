@@ -40,28 +40,28 @@ def get_adj_grid_idx(hit, grid_idx, grid):
     (minx, miny, maxx, maxy) = grid.bounds 
     
     if Point(hit).within(LineString([(minx, miny), (maxx, miny)])):
-        print 'hit the top side'
+        #print 'hit the top side'
         return (grid_idx[0], grid_idx[1]-1)
     elif Point(hit).within(LineString([(minx, maxy), (maxx, maxy)])):
-        print 'hit the bottom side'
+        #print 'hit the bottom side'
         return (grid_idx[0], grid_idx[1]+1)
     elif Point(hit).within(LineString([(minx, miny), (minx, maxy)])):
-        print 'hit the left side'
+        #print 'hit the left side'
         return (grid_idx[0]-1, grid_idx[1])
     elif Point(hit).within(LineString([(maxx, miny), (maxx, maxy)])):
-        print 'hit the right side'
+        #print 'hit the right side'
         return (grid_idx[0]+1, grid_idx[1])
     elif hit == (maxx, miny):
-        print 'hit the top right corner'
+        #print 'hit the top right corner'
         return (grid_idx[0]+1, grid_idx[1]-1)
     elif hit == (minx, miny):
-        print 'hit the top left corner'
+        #print 'hit the top left corner'
         return (grid_idx[0]-1, grid_idx[1]-1)
     elif hit == (maxx, maxy):
-        print 'hit the bottom right corner'
+        #print 'hit the bottom right corner'
         return (grid_idx[0]+1, grid_idx[1]+1)
     elif hit == (minx, maxy):
-        print 'hit the bottom left corner'
+        #print 'hit the bottom left corner'
         return (grid_idx[0]-1, grid_idx[1]+1)
     else:
         assert False, 'error: erronouos ray hit'
@@ -74,11 +74,13 @@ def ray_casting(pose_dict, m, direction, grid_idx=None):
       'nw': 45. / 180.0 * math.pi,
       'w': 90  / 180.0 * math.pi,
       'sw': (90 + 45.0) / 180.0 * math.pi,
-      's': 180      / 180.0 * math.pi ,
+      's':  math.pi ,
       'se': (180 + 45.0) / 180.0 * math.pi,
       'e': -90. / 180.0 * math.pi,
       'ne': -45. / 180.0 * math.pi
     }
+    #print direction
+    #print theta_add[direction]
     pose = (pose_dict['x'], pose_dict['y'], pose_dict['theta'] + theta_add[direction])
     #
     assert is_valid(pose, m), 'init pose is invalid: on the occupied grid'    
@@ -92,7 +94,7 @@ def ray_casting(pose_dict, m, direction, grid_idx=None):
     # Construct the enclosing grid
     if grid_idx==None:
         grid_idx = get_grid_idx(pose[0], pose[1])
-    print 'grid_idx=', grid_idx
+    #print 'grid_idx=', grid_idx
     
     xmin = float(grid_idx[0])
     xmax = float(grid_idx[0]) + resolution
@@ -103,14 +105,14 @@ def ray_casting(pose_dict, m, direction, grid_idx=None):
     
     # Obtain the intersection points
     hit_raw = ray.intersection(grid)
-    print 'list(hit_raw.coords)=', list(hit_raw.coords)
+    #print 'list(hit_raw.coords)=', list(hit_raw.coords)
     
     hit = hit_raw.coords[1]# the first element is the ray origin 
-    print 'hit=', hit
+    #print 'hit=', hit
     
     #
     adj_grid_idx = get_adj_grid_idx(hit, grid_idx, grid)
-    print 'adj_grid_idx=', adj_grid_idx
+    #print 'adj_grid_idx=', adj_grid_idx
     
     if m[adj_grid_idx[1]][adj_grid_idx[0]] != 'W':
         new_pose = {'x': hit[0], 'y': hit[1], 'theta': pose_dict['theta']}
@@ -180,6 +182,12 @@ def test_2():
         return True
     else:
         return False
+
+def range(point1, point2):
+    return math.sqrt(
+        (point1[0]-point2[0])**2 + 
+        (point1[1]-point2[1])**2
+      )
 
 def main():
 #    test()

@@ -23,8 +23,7 @@ plots = []
 
 t_max = 3
 T = range(t_max+1)# contains a seq. of discrete time step from 0 to t_max
-#n_particle = 20 # fixed, hardcoded
-
+n_particle = 20 # fixed, hardcoded
 # the world is simply a 1-D straight line in the range of [0.,10.]
 #m = {'left-wall': 0.0, 'right-wall': 10.0, 'left-door': 2.0, 'middle-door': 4.0, 'right-door': 9.0, 'start-pos': 2.0, 'door-width': 1.0}
 
@@ -32,6 +31,16 @@ T = range(t_max+1)# contains a seq. of discrete time step from 0 to t_max
 # woodenFlood = ' '
 # softCarpet = 'S'
 # hardCarpet = 'H'
+X = []
+size = {'width': 20, 'height': 20}
+
+xs = np.random.uniform(0, 20, n_particle)
+ys = np.random.uniform(0, 20, n_particle)
+theta = np.random.uniform(0, math.pi*2, n_particle) # = 360 degree
+
+for ii in range(n_particle):
+    X.append(({'x': xs[ii], 'y': ys[ii], 'theta': theta[ii]}, 1./n_particle))
+
 m = [
     [ 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'],
     [ 'W', ' ', ' ', 'H', 'H', 'S', 'W', ' ', ' ', ' ', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'W'],
@@ -112,8 +121,8 @@ for t in T[1:]:
     z = sensor.sense_beam(x_star, m)
     print 'z_star= ', z
     
-    #X = MCL.run(X, u, z, m)
-    plots.append(plotter.plot(None, m, x_star, t))
+    X = MCL.run(X, u, z, m)
+    plots.append(plotter.plot(X, m, x_star, t, z))
     
 # Closure
 with PdfPages('plot.pdf') as pdf:
