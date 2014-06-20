@@ -106,7 +106,7 @@ for t in None:# T[1:]:
     z = sensor.sense_beam(x_star, grid)
     print 'z_star= ', z
     
-    #X = MCL.run(X, u, z, m)
+    X = MCL.run(X, u, z, m)
     #plots.append(plotter.plot(X, m, x_star, t))
     
 # Closure

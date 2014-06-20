@@ -16,13 +16,13 @@ def get_tip(pose, m):
     r = math.sqrt(2*(resolution ** 2))# the longest line segment in a grid
     
     # convert polar to cartesian coord
-    dx = r * math.cos(pose['theta'])
-    dy = r * math.sin(pose['theta']) 
+    dx = r * math.cos(pose[2])
+    dy = r * math.sin(pose[2]) 
     dy = -1.0 * dy# the y+ points downward instead of upward, we deliberately invert it
     
     # calculate the tip coord
-    x = pose['x'] + dx
-    y = pose['y'] + dy
+    x = pose[0] + dx
+    y = pose[1] + dy
     
     return (x,y)
     
@@ -87,7 +87,7 @@ def ray_casting(pose, m, direction, grid_idx=None):
     assert is_valid(pose, m), 'init pose is invalid: on the occupied grid'    
     
     # from the current pose, get the tip of the (trial) ray
-    tip = get_tip(pose, m)
+    tip = get_tip(p, m)
     
     # Construct the ray
     ray = LineString([(pose['x'], pose['y']), (tip[0], tip[1])])
