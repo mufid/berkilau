@@ -13,7 +13,7 @@ from shapely.geometry import Point
 def get_tip(pose, m):
     '''Obtain the top point of a ray, whose length is the diagonal of a squared grid'''
     resolution = 1
-    r = math.sqrt(2*(resolution ** 2))# the longest line segment in a grid
+    r = math.sqrt(2*(resolution**2))# the longest line segment in a grid
     
     # convert polar to cartesian coord
     dx = r * math.cos(pose[2])
@@ -33,7 +33,7 @@ def get_grid_idx(x, y):
     return (idx_x, idx_y)
     
 def is_valid(pose, m):
-    idx = get_grid_idx(pose['x'], pose['y'])
+    idx = get_grid_idx(pose[0], pose[1])
     return m[idx[1]][idx[0]] != 'W'
 
 def get_adj_grid_idx(hit, grid_idx, grid):
@@ -66,35 +66,32 @@ def get_adj_grid_idx(hit, grid_idx, grid):
     else:
         assert False, 'error: erronouos ray hit'
             
-def ray_casting(pose, m, direction, grid_idx=None):
+def ray_casting(pose_dict, m, direction, grid_idx=None):
     '''Return the hit point at the nearest occupied grid along the ray direction'''
     resolution = 1
-
     theta_add = {
-      'n': 0   / 180.0 * math.pi,
-      'nw': 45 / 180.0 * math.pi,
+      'n': 0.0   / 180.0 * math.pi,
+      'nw': 45. / 180.0 * math.pi,
       'w': 90  / 180.0 * math.pi,
-      'sw': 90 + 45 / 180.0 * math.pi,
+      'sw': (90 + 45.0) / 180.0 * math.pi,
       's': 180      / 180.0 * math.pi ,
-      'se': 180 + 45 / 180.0 * math.pi,
-      'e': -90 / 180.0 * math.pi,
-      'ne': -45 / 180.0 * math.pi
+      'se': (180 + 45.0) / 180.0 * math.pi,
+      'e': -90. / 180.0 * math.pi,
+      'ne': -45. / 180.0 * math.pi
     }
-
-    p = (pose['x'], pose['y'], pose['theta'] + theta_add[direction])
-
+    pose = (pose_dict['x'], pose_dict['y'], pose_dict['theta'] + theta_add[direction])
     #
     assert is_valid(pose, m), 'init pose is invalid: on the occupied grid'    
     
     # from the current pose, get the tip of the (trial) ray
-    tip = get_tip(p, m)
+    tip = get_tip(pose, m)
     
     # Construct the ray
-    ray = LineString([(pose['x'], pose['y']), (tip[0], tip[1])])
+    ray = LineString([(pose[0], pose[1]), (tip[0], tip[1])])
     
     # Construct the enclosing grid
     if grid_idx==None:
-        grid_idx = get_grid_idx(pose['x'], pose['y'])
+        grid_idx = get_grid_idx(pose[0], pose[1])
     print 'grid_idx=', grid_idx
     
     xmin = float(grid_idx[0])
@@ -115,8 +112,8 @@ def ray_casting(pose, m, direction, grid_idx=None):
     adj_grid_idx = get_adj_grid_idx(hit, grid_idx, grid)
     print 'adj_grid_idx=', adj_grid_idx
     
-    if m[adj_grid_idx[1]][adj_grid_idx[0]]=='W':
-        new_pose = {'x': hit[0], 'y': hit[1], 'theta': pose['theta']}
+    if m[adj_grid_idx[1]][adj_grid_idx[0]] != 'W':
+        new_pose = {'x': hit[0], 'y': hit[1], 'theta': pose_dict['theta']}
         hit = ray_casting(new_pose, m, direction, grid_idx= adj_grid_idx)
     
     return hit
