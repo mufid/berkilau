@@ -1,0 +1,1 @@
+http://stackoverflow.com/questions/3652625/installing-setuptools-on-64-bit-windows/9131949#9131949

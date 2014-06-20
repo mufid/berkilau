@@ -2,8 +2,8 @@
 # @author: vektor dewanto
 
 import numpy as np
-import CSUIBotClass2014.action_model.model_1 as act_model
-import CSUIBotClass2014.perception_model.model_1 as obs_model
+import CSUIBotClass2014.action_model.model_uas as act_model
+import CSUIBotClass2014.perception_model.beam_range_finder_model as obs_model
 
 def normalize_weight(X):
     # Normalize all weights, so that they sum up to one
@@ -43,7 +43,7 @@ def run(X_past, u, z, m):
 
     for i in range(n_particle):
         x = act_model.sample_motion_model(u, X_past[i][0])
-        w = obs_model.measurement_model(z, x, m)
+        w = obs_model.beam_range_finder_model(z, x, m)
         X_bar.append((x, w))
     
     X = resample(X_bar)

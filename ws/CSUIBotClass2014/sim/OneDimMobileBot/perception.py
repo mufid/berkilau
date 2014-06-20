@@ -3,10 +3,23 @@
 
 import numpy as np
 import scipy.stats as stat
+import CSUIBotClass2014.util.ray_casting as RayCast
+def get_noise():
+    # all in meters
+    mu = 0
+    sigma = .5
+    return np.random.normal(mu, sigma, 1)[0]
 
+def sense_beam(state, m):
+    arahs = ['n', 'nw', 'w', 'sw', 's', 'se', 'e', 'ne']
+    z_t = [RayCast.ray_cas(state, m) for state in arahs]
+    z_t = [i + get_noise() for i in z_t]
+    return z_t;
+
+'''
 def sense_door(x, m):
     ''' 
-    A door sensor returns either True (=door) or False (=no door) with some perception errors
+    #A door sensor returns either True (=door) or False (=no door) with some perception errors
     '''
     # Set the (true) perception model: a gaussian mixture model with three modals (=peaks=models)
     multimodal = [(m['left-door'], 0.25), (m['middle-door'], 0.25), (m['right-door'], 0.25)]
@@ -29,3 +42,4 @@ def sense_door(x, m):
     door = np.random.binomial(n=1, p=p_total)
     
     return door
+'''

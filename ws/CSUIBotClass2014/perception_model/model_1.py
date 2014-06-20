@@ -4,7 +4,7 @@ def measurement_model(z, x, m):
     ''' The door sensor model is represented by a mixture distribution of three Gaussian distributions forming a multimodal distribution with three peaks on the doors' locations
     '''
     # Set the (true) perception model
-    multimodal = [(m['left-door'], 0.25), (m['middle-door'], 0.25), (m['right-door'], 0.25)]
+    multimodal = [(m['left-door'], 0.05), (m['middle-door'], 0.5), (m['right-door'], 0.25)]
     door_width = m['door-width']
     
     # lamdas contains the weight to each element in probs
