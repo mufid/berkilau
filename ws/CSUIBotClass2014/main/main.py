@@ -8,7 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 import matplotlib.cm as cmx
-import CSUIBotClass2014.util.plotter as plotter
+import CSUIBotClass2014.util.plotter2 as plotter
 import CSUIBotClass2014.sim.SimulationExtreme.action as action
 import CSUIBotClass2014.sim.SimulationExtreme.perception as sensor
 #import CSUIBotClass2014.sim.OneDimMobileBot.xaction as action
@@ -113,11 +113,11 @@ for t in T[1:]:
     print 'z_star= ', z
     
     #X = MCL.run(X, u, z, m)
-    #plots.append(plotter.plot(X, m, x_star, t))
+    plots.append(plotter.plot(None, m, x_star, t))
     
 # Closure
-#with PdfPages('plot.pdf') as pdf:
-#    for p in plots:
-#        pdf.savefig(p)
+with PdfPages('plot.pdf') as pdf:
+    for p in plots:
+        pdf.savefig(p)
 
 #print "mission accomplished: bye :)"
