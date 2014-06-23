@@ -64,7 +64,7 @@ def beam_range_finder_model(z_t, x_t, m):
       result_raycast)
     
     #intrinsic parameter, totalnya harus = 1
-    zhit = 0.
+    zhit = 0.7
     zshort = 0.1
     zfail = 0.1
     zrand = 0.1
