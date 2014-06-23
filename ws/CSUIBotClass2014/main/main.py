@@ -66,15 +66,48 @@ def main(particle_init, action_fun, percept_fun, u_star, x_star, the_map, time_a
     m = the_map
     plots = []
     X = particle_init
+    kk = 0
     for t in T[1:]:
+        cp = U[kk]
+
+        delta_x = x_star['x'] - cp['x']
+        delta_y = x_star['y'] - cp['y']
+
+        print x_star['x'], x_star['y']
+        print cp['x'], cp['y']
+        print delta_x, delta_y
+
+        print "---"
+
+        print x_star['theta']
+
+        delta_th = (math.atan(delta_y / delta_x)) - x_star['theta']
+
+        print delta_th
+
+        # delta_th = x_star['theta'] + math.atan(delta_y / delta_x)
+
+        delta_x = abs(delta_x)
+        delta_y = abs(delta_y)
+
+        if (delta_x <= 1 and delta_y <= 1):
+            u = {'v': 0.2, 'w': delta_th}
+        else:
+            u = {'v': 1, 'w': delta_th}
+
+        if (delta_x <= 0.5 and delta_y <= 0.5):
+            kk += 1
+
+        # print delta_th
+
         print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> t=", t
         # _Simulate_ an action
         if (forced_state and at_time == t):
-            u = U[t]
+            # u = U[t]
             print "Kidnap!"
             x_star = forced_state
         else:
-            u = U[t]
+            # u = U[t]
             print 'u_star=', u
             x_star = action_fun(u, x_star, m)
         
@@ -103,21 +136,28 @@ if __name__ == "__main__":
     T = range(t_max+1) # contains a seq. of discrete time step from 0 to t_max
     n_particle = 200    # fixed, hardcoded
     degree = math.pi/180
-    U = [
-            None, 
-            {'v': 1, 'w': -7.5*degree}, 
-            {'v': 0, 'w': 7.5*degree}, 
-            {'v': 1.5, 'w': -7.5*degree },
-            {'v': 1.5, 'w': 12.0*degree}, 
-            {'v': 0.75, 'w': 0},
-            {'v': 0, 'w': -5.0*degree},   # sec 6
-            {'v': 2.5, 'w': 0},
-            {'v': 0.5, 'w': -5.0*degree},    # sec 8
-            {'v': 0.5, 'w': -2.5*degree},
-            {'v': .5, 'w': 0},    # sec 10
-            {'v': .5, 'w': math.pi / 8},
-            {'v': .5, 'w': math.pi / 8}
+    # U = [
+    #         None, 
+    #         {'v': 1, 'w': -7.5*degree}, 
+    #         {'v': 0, 'w': 7.5*degree}, 
+    #         {'v': 1.5, 'w': -7.5*degree },
+    #         {'v': 1.5, 'w': 12.0*degree}, 
+    #         {'v': 0.75, 'w': 0},
+    #         {'v': 0, 'w': -5.0*degree},   # sec 6
+    #         {'v': 2.5, 'w': 0},
+    #         {'v': 0.5, 'w': -5.0*degree},    # sec 8
+    #         {'v': 0.5, 'w': -2.5*degree},
+    #         {'v': .5, 'w': 0},    # sec 10
+    #         {'v': .5, 'w': math.pi / 8},
+    #         {'v': .5, 'w': math.pi / 8}
         
+    #     ]
+
+    U = [
+        {'x': 18.0, 'y': 11.0},
+        {'x': 18.0, 'y':  2.0},
+        {'x':  8.5, 'y':  2.0},
+        {'x':  8.5, 'y': 11.0}
         ]
 
     x_star = {'x': 8.5, 'y': 10.5, 'theta': math.pi/16 }
