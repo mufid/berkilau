@@ -75,13 +75,13 @@ def ray_casting(pose_dict, m, direction, grid_idx=None):
     resolution = 1
     theta_add = {
       'n': 0.0   / 180.0 * math.pi,
-      'nw': 45. / 180.0 * math.pi,
-      'w': 90  / 180.0 * math.pi,
-      'sw': (90 + 45.0) / 180.0 * math.pi,
+      'nw': -45. / 180.0 * math.pi,
+      'w': -90  / 180.0 * math.pi,
+      'sw': -(90 + 45.0) / 180.0 * math.pi,
       's':  math.pi ,
-      'se': (180 + 45.0) / 180.0 * math.pi,
-      'e': -90. / 180.0 * math.pi,
-      'ne': -45. / 180.0 * math.pi
+      'se': (90 + 45.0) / 180.0 * math.pi,
+      'e': 90. / 180.0 * math.pi,
+      'ne': 45. / 180.0 * math.pi
     }
     #print direction
     #print theta_add[direction]

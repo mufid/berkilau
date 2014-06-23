@@ -18,12 +18,12 @@ def move_velocity(u, pose, m):
 
     # Set the odometry error model
     alpha = [0, 
-        .1, 
-        math.pi/8, 
-        .11, 
-        math.pi/8, 
-        .15, 
-        math.pi/8
+        .025, 
+        math.pi/135, 
+        .025, 
+        math.pi/135, 
+        .025, 
+        math.pi/135
     ]
     a = alpha
     v_desired = u['v']

@@ -99,14 +99,14 @@ if __name__ == "__main__":
     # Choose case. Define action, perception
     print "Using case: %s" % sys.argv[2]
     X = []
-    t_max = 12
+    t_max = 3
     T = range(t_max+1) # contains a seq. of discrete time step from 0 to t_max
     n_particle = 200    # fixed, hardcoded
     U = [
             None, 
-            {'v': .1, 'w': 0}, 
-            {'v': .2, 'w': 0}, 
-            {'v': .1, 'w': math.pi / 8 },
+            {'v': 0.75, 'w': -math.pi/16}, 
+            {'v': 0.75, 'w': 0}, 
+            {'v': 0.75, 'w': math.pi / 8 },
             {'v': .1, 'w': 0}, 
             {'v': .1, 'w': 0},
             {'v': .1, 'w': 0},   # sec 6
@@ -116,9 +116,10 @@ if __name__ == "__main__":
             {'v': .5, 'w': 0},    # sec 10
             {'v': .5, 'w': math.pi / 8},
             {'v': .5, 'w': math.pi / 8}
+        
         ]
 
-    x_star = {'x': 8.1, 'y': 10.1, 'theta': -math.pi/4 }
+    x_star = {'x': 8.5, 'y': 10.5, 'theta': math.pi/16 }
 
     action_fun  = action.move_velocity
     percept_fun = sensor.sense_beam
