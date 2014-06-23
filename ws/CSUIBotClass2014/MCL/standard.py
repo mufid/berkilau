@@ -45,7 +45,7 @@ def run(X_past, u, z, m):
     for i in range(n_particle):
         x = act_model.sample_motion_model(u, X_past[i][0], m)
 
-        w = obs_model.beam_range_finder_model(z, x, m)
+        w = 1-obs_model.beam_range_finder_model(z, x, m)
         X_bar.append((x, w))
     
     X = resample(X_bar)

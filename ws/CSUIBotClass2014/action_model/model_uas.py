@@ -3,7 +3,9 @@ import math
 
 def sample(b):
     mu    = .0
-    sigma = 0.25
+    sigma = b
+    if b == 0:
+        return 0
     return np.random.normal(mu, sigma, 1)[0]
 
 def sample_motion_model(u, pose, m):
@@ -12,14 +14,13 @@ def sample_motion_model(u, pose, m):
 
     dt = 1 # For now, one second difference only
 
-    a = [
-        None,
-        .1,
-        math.pi / 8,
-        .1,
-        math.pi / 8,
-        .1,
-        math.pi / 8
+    a = [0, 
+        .025, 
+        math.pi/135, 
+        .025, 
+        math.pi/135, 
+        .025, 
+        math.pi/135
     ]
 
     v_desired = u['v']
