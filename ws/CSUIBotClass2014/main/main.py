@@ -77,7 +77,8 @@ def main(particle_init, action_fun, percept_fun, u_star, x_star, the_map, time_a
     while start:
         t+=1
         print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> start t=", t
-        cp = target[kk]
+
+        cp = U[kk]
 
         delta_x = x_star['x'] - cp['x']
         delta_y = x_star['y'] - cp['y']
@@ -104,6 +105,11 @@ def main(particle_init, action_fun, percept_fun, u_star, x_star, the_map, time_a
                 u = {'v': distance(x_star, cp), 'w': 0}
         else:
             u = {'v': 0, 'w':delta_th/2}
+        
+        if(sys.argv[2] == 'kidnap'):
+            u = knpU[t]
+            if(t == len(knpU)-1):
+                start = False
         print "--- ---"
         print 'action v: ', u['v'], 'action w: ', u['w']
         #if (delta_x <= 1 and delta_y <= 1):
@@ -118,8 +124,7 @@ def main(particle_init, action_fun, percept_fun, u_star, x_star, the_map, time_a
                 kk += 1
 
         # print delta_th
-
-        
+        #if(t == 8): start = False
         # _Simulate_ an action
         if (forced_state and at_time == t):
             # u = U[t]
@@ -129,7 +134,7 @@ def main(particle_init, action_fun, percept_fun, u_star, x_star, the_map, time_a
             #u = U[t]
             print 'u_star=', u
             x_star = action_fun(u, x_star, m)
-        
+
         print 'x_star=', x_star
         
         z = percept_fun(x_star, m)
@@ -156,12 +161,32 @@ if __name__ == "__main__":
     T = range(t_max+1) # contains a seq. of discrete time step from 0 to t_max
     n_particle = 200    # fixed, hardcoded
     degree = math.pi/180
-    target = [ #for local and global problem
+
+    U = [ #for local and global problem
         {'x': 18.0, 'y': 11.0},
         {'x': 18.0, 'y':  2.5},
         {'x':  8.5, 'y':  2.0},
         {'x':  8.5, 'y': 11.0}
         ]
+
+    knpU = [
+        None,
+        {'v': 0.0, 'w': -math.pi/32},
+        {'v': 1.0, 'w': 0.0},
+        {'v': 1.0, 'w': 0.0},
+        {'v': 0.0, 'w': math.pi/24},
+        {'v': 1.0, 'w': 0.0},
+        {'v': 1.0, 'w': 0.0},
+        {'v': 1.0, 'w': 0.0},
+        {'v': 0.0, 'w': math.pi/64},
+        {'v': 1.0, 'w': 0.0},
+        {'v': 1.0, 'w': 0.0},
+        {'v': 1.0, 'w': 0.0},
+        {'v': 0.0, 'w': math.pi/32},
+        {'v': 1.0, 'w': 0.0},
+        {'v': 1.0, 'w': 0.0},
+        {'v': 1.0, 'w': -math.pi/32}
+    ]
 
     x_star = {'x': 8.5, 'y': 10.5, 'theta': math.pi/16 }
 
@@ -182,8 +207,8 @@ if __name__ == "__main__":
         xs = np.random.normal(x_star['x'], .5, n_particle)
         ys = np.random.normal(x_star['y'], .5, n_particle)
         theta = np.random.normal(x_star['theta'], math.pi/8, n_particle)
-        kn_state = {'x': 8.5, 'y': 1.7, 'theta': math.pi/16}
-        kn_time = 6
+        kn_state = {'x': 8.5, 'y': 1.5, 'theta': 0}
+        kn_time = 8
         do_nothing()
 
     for ii in range(n_particle):
@@ -192,7 +217,7 @@ if __name__ == "__main__":
     # Use the map
     the_map = m
 
-    plots = main(X, action_fun, percept_fun, target, x_star, the_map, T, alg, kn_state, kn_time)
+    plots = main(X, action_fun, percept_fun, U, x_star, the_map, T, alg, kn_state, kn_time)
 
     file_name = "plot-%s-%s.pdf" % (sys.argv[1], sys.argv[2])
     with PdfPages(file_name) as pdf:
