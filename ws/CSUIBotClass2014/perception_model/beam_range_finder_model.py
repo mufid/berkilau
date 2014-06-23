@@ -54,7 +54,7 @@ def beam_range_finder_model(z_t, x_t, m):
   if (not rc.is_valid((x_t['x'], x_t['y']), m)):
     return 1
 
-  #return 0.07
+  return 0.07
 
   # K: banyaknya sensor
   sensors = 'n nw w sw s se e ne'.split()

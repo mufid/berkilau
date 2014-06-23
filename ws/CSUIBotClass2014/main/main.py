@@ -61,53 +61,72 @@ def do_nothing():
     # Actually doing nothing
     return None
 
+def distance(robot, target):
+    delta_x = robot['x'] - target['x']
+    delta_y = robot['y'] - target['y']
+    return math.sqrt(delta_x**2 + delta_y**2)
+
 def main(particle_init, action_fun, percept_fun, u_star, x_star, the_map, time_array, localization_algorithm, forced_state=None, at_time=None):
     T = time_array
     m = the_map
     plots = []
     X = particle_init
     kk = 0
-    for t in T[1:]:
-        cp = U[kk]
+    start = True
+    t = 0
+    while start:
+        t+=1
+        print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> start t=", t
+        cp = target[kk]
 
         delta_x = x_star['x'] - cp['x']
         delta_y = x_star['y'] - cp['y']
 
-        print x_star['x'], x_star['y']
-        print cp['x'], cp['y']
-        print delta_x, delta_y
+        print 'robot: ',x_star['x'], x_star['y'], x_star['theta']
+        print 'target: ',cp['x'], cp['y']
+        print 'delta xy: ',delta_x, delta_y
 
         print "---"
+        delta_th = (math.atan2(-delta_y, -delta_x)) - x_star['theta']
 
-        print x_star['theta']
-
-        delta_th = (math.atan(delta_y / delta_x)) - x_star['theta']
-
-        print delta_th
-
+        print 'delta_theta', delta_th, ' deg: ', delta_th*180/math.pi
+        print 'distance', distance(x_star, cp)
         # delta_th = x_star['theta'] + math.atan(delta_y / delta_x)
 
         delta_x = abs(delta_x)
         delta_y = abs(delta_y)
 
-        if (delta_x <= 1 and delta_y <= 1):
-            u = {'v': 0.2, 'w': delta_th}
+        delta_deg = abs(delta_th*180/math.pi)
+        if(delta_deg < 10.0):
+            if(distance(x_star, cp) > 1.0):
+                u = {'v': 1.0, 'w': 0}
+            else:
+                u = {'v': distance(x_star, cp), 'w': 0}
         else:
-            u = {'v': 1, 'w': delta_th}
+            u = {'v': 0, 'w':delta_th/2}
+        print "--- ---"
+        print 'action v: ', u['v'], 'action w: ', u['w']
+        #if (delta_x <= 1 and delta_y <= 1):
+        #    u = {'v': 0.2, 'w': delta_th}
+        #else:
+        #    u = {'v': 1, 'w': delta_th}
 
-        if (delta_x <= 0.5 and delta_y <= 0.5):
-            kk += 1
+        if (distance(x_star, cp) < 1.0):
+            if(kk == 3):
+                start = False
+            else:
+                kk += 1
 
         # print delta_th
 
-        print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> t=", t
+        
         # _Simulate_ an action
         if (forced_state and at_time == t):
             # u = U[t]
             print "Kidnap!"
             x_star = forced_state
         else:
-            # u = U[t]
+            #u = U[t]
             print 'u_star=', u
             x_star = action_fun(u, x_star, m)
         
@@ -118,7 +137,8 @@ def main(particle_init, action_fun, percept_fun, u_star, x_star, the_map, time_a
         
         X = localization_algorithm(X, u, z, m)
         plots.append(plotter.plot(X, m, x_star, t, z))
-    
+        
+        print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> end of t=", t
     return plots
 
 if __name__ == "__main__":
@@ -132,13 +152,13 @@ if __name__ == "__main__":
     # Choose case. Define action, perception
     print "Using case: %s" % sys.argv[2]
     X = []
-    t_max = 13
+    t_max = 40
     T = range(t_max+1) # contains a seq. of discrete time step from 0 to t_max
     n_particle = 200    # fixed, hardcoded
     degree = math.pi/180
-    U = [
+    target = [ #for local and global problem
         {'x': 18.0, 'y': 11.0},
-        {'x': 18.0, 'y':  2.0},
+        {'x': 18.0, 'y':  2.5},
         {'x':  8.5, 'y':  2.0},
         {'x':  8.5, 'y': 11.0}
         ]
@@ -172,7 +192,7 @@ if __name__ == "__main__":
     # Use the map
     the_map = m
 
-    plots = main(X, action_fun, percept_fun, U, x_star, the_map, T, alg, kn_state, kn_time)
+    plots = main(X, action_fun, percept_fun, target, x_star, the_map, T, alg, kn_state, kn_time)
 
     file_name = "plot-%s-%s.pdf" % (sys.argv[1], sys.argv[2])
     with PdfPages(file_name) as pdf:
