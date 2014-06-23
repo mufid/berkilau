@@ -99,7 +99,7 @@ if __name__ == "__main__":
     # Choose case. Define action, perception
     print "Using case: %s" % sys.argv[2]
     X = []
-    t_max = 10
+    t_max = 13
     T = range(t_max+1) # contains a seq. of discrete time step from 0 to t_max
     n_particle = 200    # fixed, hardcoded
     degree = math.pi/180
@@ -111,12 +111,13 @@ if __name__ == "__main__":
             {'v': 1.5, 'w': 12.0*degree}, 
             {'v': 0.75, 'w': 0},
             {'v': 0, 'w': -5.0*degree},   # sec 6
-            {'v': 2.5, 'w': 0},
+            {'v': 1.5, 'w': 0},
+            {'v': 1.5, 'w': 0},
             {'v': 0.5, 'w': -5.0*degree},    # sec 8
             {'v': 0.5, 'w': -2.5*degree},
             {'v': .5, 'w': 0},    # sec 10
-            {'v': .5, 'w': math.pi / 8},
-            {'v': .5, 'w': math.pi / 8}
+            {'v': 0, 'w': -math.pi/4},
+            {'v': .5, 'w': 0}
         
         ]
 
