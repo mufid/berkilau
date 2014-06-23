@@ -169,7 +169,7 @@ if __name__ == "__main__":
         {'x':  8.5, 'y': 11.0}
         ]
 
-    knpU = [
+    knpU = [ #action list for kidnap problem
         None,
         {'v': 0.0, 'w': -math.pi/32},
         {'v': 1.0, 'w': 0.0},
