@@ -61,7 +61,7 @@ def do_nothing():
     # Actually doing nothing
     return None
 
-def main(particle_init, action_fun, percept_fun, u_star, x_star, the_map, time_array, localization_algorithm, forced_state=None):
+def main(particle_init, action_fun, percept_fun, u_star, x_star, the_map, time_array, localization_algorithm, forced_state=None, at_time=None):
     T = time_array
     m = the_map
     plots = []
@@ -69,10 +69,15 @@ def main(particle_init, action_fun, percept_fun, u_star, x_star, the_map, time_a
     for t in T[1:]:
         print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> t=", t
         # _Simulate_ an action
-        u = U[t]
-        print 'u_star=', u
+        if (forced_state and at_time == t):
+            u = U[t]
+            print "Kidnap!"
+            x_star = forced_state
+        else:
+            u = U[t]
+            print 'u_star=', u
+            x_star = action_fun(u, x_star, m)
         
-        x_star = action_fun(u, x_star, m)
         print 'x_star=', x_star
         
         z = percept_fun(x_star, m)
@@ -113,21 +118,27 @@ if __name__ == "__main__":
             {'v': .5, 'w': math.pi / 8}
         ]
 
-    x_star = {'x': 2.1, 'y': 2.1, 'theta': -math.pi/4 }
+    x_star = {'x': 8.1, 'y': 10.1, 'theta': -math.pi/4 }
 
     action_fun  = action.move_velocity
     percept_fun = sensor.sense_beam
+    kn_state = None
+    kn_time = None
 
     if (sys.argv[2] == 'global'):
         xs = np.random.uniform(0, 20, n_particle)
         ys = np.random.uniform(0, 20, n_particle)
         theta = np.random.uniform(0, math.pi * 2, n_particle)
-    elif (sys.arv[2] == 'local'):
+    elif (sys.argv[2] == 'local'):
         xs = np.random.normal(x_star['x'], .5, n_particle)
         ys = np.random.normal(x_star['y'], .5, n_particle)
         theta = np.random.normal(x_star['theta'], math.pi/8, n_particle)
     else:
-        # Not yet
+        xs = np.random.normal(x_star['x'], .5, n_particle)
+        ys = np.random.normal(x_star['y'], .5, n_particle)
+        theta = np.random.normal(x_star['theta'], math.pi/8, n_particle)
+        kn_state = {'x': 8.5, 'y': 1.7, 'theta': math.pi/16}
+        kn_time = 6
         do_nothing()
 
     for ii in range(n_particle):
@@ -136,7 +147,7 @@ if __name__ == "__main__":
     # Use the map
     the_map = m
 
-    plots = main(X, action_fun, percept_fun, U, x_star, the_map, T, alg)
+    plots = main(X, action_fun, percept_fun, U, x_star, the_map, T, alg, kn_state, kn_time)
 
     file_name = "plot-%s-%s.pdf" % (sys.argv[1], sys.argv[2])
     with PdfPages(file_name) as pdf:
