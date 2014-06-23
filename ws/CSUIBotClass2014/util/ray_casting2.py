@@ -34,6 +34,10 @@ def get_grid_idx(x, y):
     
 def is_valid(pose, m):
     idx = get_grid_idx(pose[0], pose[1])
+    if (idx[0] >= 20 or idx[0] < 0 or
+        idx[1] >= 20 or idx[1] < 0
+        ):
+        return False
     return m[idx[1]][idx[0]] != 'W'
 
 def get_adj_grid_idx(hit, grid_idx, grid):

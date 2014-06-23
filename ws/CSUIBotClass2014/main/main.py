@@ -61,10 +61,11 @@ def do_nothing():
     # Actually doing nothing
     return None
 
-def main(action_fun, percept_fun, u_star, x_star_init, the_map, time_array, localization_algorithm, forced_state=None):
+def main(particle_init, action_fun, percept_fun, u_star, x_star, the_map, time_array, localization_algorithm, forced_state=None):
     T = time_array
     m = the_map
     plots = []
+    X = particle_init
     for t in T[1:]:
         print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> t=", t
         # _Simulate_ an action
@@ -86,21 +87,36 @@ if __name__ == "__main__":
     # Choose localization algorithm:
     print "Using localization algorithm: %s" % sys.argv[1]
     if (sys.argv[1] == 'kld'):
-        alg = MCL.run
-    else:
         alg = KLD.run
+    else:
+        alg = MCL.run
 
     # Choose case. Define action, perception
     print "Using case: %s" % sys.argv[2]
     X = []
-    t_max = 3
+    t_max = 12
     T = range(t_max+1) # contains a seq. of discrete time step from 0 to t_max
     n_particle = 200    # fixed, hardcoded
-    U = [None, {'v': .1, 'w': 0}, {'v': .2, 'w': 0}, {'v': 1, 'w': math.pi / 8 }]
+    U = [
+            None, 
+            {'v': .1, 'w': 0}, 
+            {'v': .2, 'w': 0}, 
+            {'v': .1, 'w': math.pi / 8 },
+            {'v': .1, 'w': 0}, 
+            {'v': .1, 'w': 0},
+            {'v': .1, 'w': 0},   # sec 6
+            {'v': .5, 'w': math.pi / 8},
+            {'v': .1, 'w': 0},    # sec 8
+            {'v': .5, 'w': 0},
+            {'v': .5, 'w': 0},    # sec 10
+            {'v': .5, 'w': math.pi / 8},
+            {'v': .5, 'w': math.pi / 8}
+        ]
+
     x_star = {'x': 2.1, 'y': 2.1, 'theta': -math.pi/4 }
 
-    action_fun = action.move_velocity
-    perception_fun = sensor.sense_beam
+    action_fun  = action.move_velocity
+    percept_fun = sensor.sense_beam
 
     if (sys.argv[2] == 'global'):
         xs = np.random.uniform(0, 20, n_particle)
@@ -120,9 +136,10 @@ if __name__ == "__main__":
     # Use the map
     the_map = m
 
-    plots = main(action_fun, percept_fun, u_star, x_star_init, the_map, alg)
+    plots = main(X, action_fun, percept_fun, U, x_star, the_map, T, alg)
 
-    with PdfPages("plot-%s-%s.pdf" % (argv[1], argv[2])) as pdf:
+    file_name = "plot-%s-%s.pdf" % (sys.argv[1], sys.argv[2])
+    with PdfPages(file_name) as pdf:
         for p in plots:
             pdf.savefig(p)
 

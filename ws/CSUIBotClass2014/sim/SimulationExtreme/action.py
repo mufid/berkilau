@@ -20,9 +20,9 @@ def move_velocity(u, pose, m):
     alpha = [0, 
         .1, 
         math.pi/8, 
-        1, 
+        .11, 
         math.pi/8, 
-        1, 
+        .15, 
         math.pi/8
     ]
     a = alpha

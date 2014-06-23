@@ -41,14 +41,14 @@ def plot(X, m, x_star, t, z_t):
     # Draw information
     directions = 'n nw w sw s se e ne'.split()
     title_arr = []
-    print z_t
+    #print z_t
     for direction in directions:
-        print z_t[direction]
+        #print z_t[direction]
         title_arr.append("%s: %4.2f" % (direction, z_t[direction]))
 
     ax.set_title('; '.join(title_arr))
 
-    print X
+    #print X
     xs = [xx[0]['x'] for xx in X]
     ys = [xx[0]['y'] for xx in X]
 

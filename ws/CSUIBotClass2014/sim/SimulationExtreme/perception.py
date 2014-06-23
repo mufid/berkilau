@@ -8,7 +8,7 @@ import CSUIBotClass2014.util.ray_casting2 as rc
 def get_noise():
   # all in meters
   mu = 0
-  sigma = .5
+  sigma = .1
   return np.random.normal(mu, sigma, 1)[0]
 
 def sense_beam(state, m):
@@ -20,5 +20,8 @@ def sense_beam(state, m):
     z_t[direction] = rc.range((state['x'], state['y']),
       rc.ray_casting(state, m, direction))
     z_t[direction] += get_noise()
+
+    if z_t[direction] > 3:
+      z_t[direction] = 3.0
 
   return z_t;
