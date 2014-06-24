@@ -52,7 +52,7 @@ def beam_range_finder_model(z_t, x_t, m):
 
   # Automatically zero if is invalid
   if (not rc.is_valid((x_t['x'], x_t['y']), m)):
-    return 1
+    return 0.9999
 
   #return 0.07
 

@@ -90,12 +90,14 @@ def main(particle_init, action_fun, percept_fun, u_star, x_star, the_map, time_a
         delta_x = abs(delta_x)
         delta_y = abs(delta_y)
 
-        if (delta_x <= 1 and delta_y <= 1):
+        if (delta_th > math.pi/4):
+            u = {'v': 0.2, 'w': delta_th/12}
+        if (delta_x <= 1.3 and delta_y <= 1.3):
             u = {'v': 0.2, 'w': delta_th}
         else:
             u = {'v': 1, 'w': delta_th}
 
-        if (delta_x <= 0.5 and delta_y <= 0.5):
+        if (delta_x <= 1 and delta_y <= 1):
             kk += 1
 
         # print delta_th
@@ -132,7 +134,7 @@ if __name__ == "__main__":
     # Choose case. Define action, perception
     print "Using case: %s" % sys.argv[2]
     X = []
-    t_max = 13
+    t_max = 30
     T = range(t_max+1) # contains a seq. of discrete time step from 0 to t_max
     n_particle = 200    # fixed, hardcoded
     degree = math.pi/180
