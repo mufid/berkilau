@@ -19,9 +19,9 @@ def sense_beam(state, m):
   for direction in directions:
     z_t[direction] = rc.range((state['x'], state['y']),
       rc.ray_casting(state, m, direction))
-    z_t[direction] += get_noise()
+    #z_t[direction] += get_noise()
 
-    if z_t[direction] > 6:
-      z_t[direction] = 6.0
+    #if z_t[direction] > 6:
+    #  z_t[direction] = 6.0
 
   return z_t;

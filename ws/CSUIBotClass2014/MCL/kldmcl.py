@@ -51,16 +51,18 @@ def run(X_past, u, z, m):
     
     while True:
         xt1 = resample(X_past)
-        print "menunggu pagi"
-        print len(X_past)
-        print xt1
         xmt = act_model.sample_motion_model(u, xt1[0], m)
         w = 1-obs_model.beam_range_finder_model(z, xmt, m)
         Xt.append((xmt, w))
 
         idx = int(math.floor(xmt['x']))
         idy = int(math.floor(xmt['y']))
-        if(b[idy][idx]==0):
+        if(b[idy][idx]==0 and
+            (
+                (idx < 20) and (idx >= 0) and
+                (idy < 20) and (idy >= 0)
+            )
+            ):
             k += 1
             b[idy][idx] = 1
             if(k>1):
@@ -69,6 +71,7 @@ def run(X_past, u, z, m):
                      (1 - var1 + math.sqrt(var1)*stats.norm.ppf(1-delta))**3)
         M+=1
         if not ((M<Mx) or (M<Mxmin)):
+            print "particles: %d" % len(Xt)
             return Xt
 
     return Xt

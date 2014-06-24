@@ -200,9 +200,13 @@ if __name__ == "__main__":
         ys = np.random.uniform(0, 20, n_particle)
         theta = np.random.uniform(0, math.pi * 2, n_particle)
     elif (sys.argv[2] == 'local'):
-        xs = np.random.normal(x_star['x'], .5, n_particle)
-        ys = np.random.normal(x_star['y'], .5, n_particle)
-        theta = np.random.normal(x_star['theta'], math.pi/8, n_particle)
+        xs = []
+        ys = []
+        theta = []
+        for i in range(n_particle):
+            xs.append(x_star['x'])
+            ys.append(x_star['y'])
+            theta.append(x_star['theta'])
     else:
         xs = np.random.normal(x_star['x'], .5, n_particle)
         ys = np.random.normal(x_star['y'], .5, n_particle)
