@@ -4,6 +4,8 @@
 import numpy as np
 import CSUIBotClass2014.action_model.model_uas as act_model
 import CSUIBotClass2014.perception_model.beam_range_finder_model as obs_model
+from scipy import stats
+import math
 
 def normalize_weight(X):
     # Normalize all weights, so that they sum up to one
@@ -26,7 +28,7 @@ def resample(X_bar):
         sampled = np.random.binomial(n=1, p=candidate_w)# a Bernoulli dist.
         
         if sampled==1:
-            X.append(X_bar[candidate_idx])
+            return X_bar[candidate_idx]
             
     return X
     
@@ -37,15 +39,36 @@ def run(X_past, u, z, m):
     \param z: the observation
     \param m: the given map
     '''
-    X_bar = []
-    X = []
+    epsilon = 0.05
+    delta = 0.01
+    Xt = [] 
+    b = [[0]*20]*20
+    M = 0
+    Mx = 0
+    Mxmin = 20
+    k = 0
     n_particle = len(X_past)# fixed #particle for ever :(
-
-    for i in range(n_particle):
-        x = act_model.sample_motion_model(u, X_past[i][0], m)
-        w = 1-obs_model.beam_range_finder_model(z, x, m)
-        X_bar.append((x, w))
     
-    X = resample(X_bar)
+    while True:
+        xt1 = resample(X_past)
+        print "menunggu pagi"
+        print len(X_past)
+        print xt1
+        xmt = act_model.sample_motion_model(u, xt1[0], m)
+        w = 1-obs_model.beam_range_finder_model(z, xmt, m)
+        Xt.append((xmt, w))
 
-    return X
+        idx = int(math.floor(xmt['x']))
+        idy = int(math.floor(xmt['y']))
+        if(b[idy][idx]==0):
+            k += 1
+            b[idy][idx] = 1
+            if(k>1):
+                var1 = 2.0/(9*(k-1))
+                Mx = ((k-1)/2.0*epsilon*
+                     (1 - var1 + math.sqrt(var1)*stats.norm.ppf(1-delta))**3)
+        M+=1
+        if not ((M<Mx) or (M<Mxmin)):
+            return Xt
+
+    return Xt
